@@ -1,35 +1,41 @@
 import 'package:flutter/material.dart';
-import 'model/dish_model.dart';
+
+import '../model/dish_model.dart';
 
 class Cart extends StatefulWidget {
-  final List<Dish> _cart;
+  final List<Dish> cart;
 
-  const Cart(
-    Key? key,
-    this._cart,
-  ) : super(key: key);
+  const Cart(this.cart);
 
   @override
-  _CartState createState() => _CartState(_cart);
+  _CartState createState() => _CartState(cart);
 }
 
 class _CartState extends State<Cart> {
-  _CartState(this._cart);
+  List<Dish> cart;
 
-  final List<Dish> _cart;
+  _CartState(this.cart);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading:
-            ElevatedButton(onPressed: () {}, child: const Text("Geri Gel")),
+        leading: IconButton(
+          onPressed: () {
+            setState(() {
+              Navigator.pop(context, cart);
+            });
+          },
+          icon: const Icon(
+            Icons.arrow_back_sharp,
+          ),
+        ),
         title: const Text('Cart'),
       ),
       body: ListView.builder(
-          itemCount: _cart.length,
+          itemCount: cart.length,
           itemBuilder: (context, index) {
-            var item = _cart[index];
+            var item = cart[index];
             return Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
@@ -48,7 +54,7 @@ class _CartState extends State<Cart> {
                       ),
                       onTap: () {
                         setState(() {
-                          _cart.remove(item);
+                          cart.remove(item);
                         });
                       }),
                 ),
