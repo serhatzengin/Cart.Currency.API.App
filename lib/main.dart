@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'view/store.dart';
+import 'package:sigma_basket_app/view/splash_screen.dart';
 
 void main() => runApp(const MyApp());
 
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.purple,
       ),
-      home: const StorePage(title: "Sigma Digital Chart App Serhat Zengin"),
+      home: const SplashScreen(),
     );
   }
 }
