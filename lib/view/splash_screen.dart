@@ -16,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(
-        const Duration(seconds: 2),
+        const Duration(seconds: 3),
         () => Navigator.pushReplacement(
             context,
             MaterialPageRoute(
@@ -32,16 +32,14 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              height: 120.0,
-              width: 120.0,
-              decoration: const BoxDecoration(
-                color: Colors.amber,
-                image: DecorationImage(
-                  image: AssetImage('assets/logo/sigma_telecom.jpg'),
-                  fit: BoxFit.fill,
-                ),
-              ),
-            )
+                width: 300.00,
+                height: 300.00,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: ExactAssetImage('assets/logo/sigma_telecom.jpg'),
+                    fit: BoxFit.fitHeight,
+                  ),
+                ))
           ],
         ),
       ),
