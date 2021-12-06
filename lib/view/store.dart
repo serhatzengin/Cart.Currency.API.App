@@ -1,4 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:sigma_basket_app/model/api_model.dart';
+import 'package:sigma_basket_app/services/services.dart';
 import 'cart.dart';
 import '../model/dish_model.dart';
 
@@ -22,6 +25,8 @@ class _StorePageState extends State<StorePage> {
 
   @override
   Widget build(BuildContext context) {
+    var _service = HomeService(
+        Dio(BaseOptions(baseUrl: 'http://api.exchangeratesapi.io/v1')));
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -68,9 +73,50 @@ class _StorePageState extends State<StorePage> {
       ),
       body: Column(
         children: [
-          Expanded(child: _buildGridView()),
+          Expanded(flex: 3, child: _buildGridView()),
+          Expanded(child: currencyApi(_service)),
+          TextButton(
+              onPressed: () {
+                setState(() {
+                  int a = 5;
+                  debugPrint(cross(a).toString());
+                });
+              },
+              child: const Text("Push"))
         ],
       ),
+    );
+  }
+
+  FutureBuilder<ExchangeModel> currencyApi(HomeService _service) {
+    return FutureBuilder(
+      future: _service.fetchUsers(),
+      builder: (context, snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.done:
+            if (snapshot.data != null) {
+              ExchangeModel testmodel = snapshot.data as ExchangeModel;
+              return Center(
+                child: SizedBox(
+                  height: 100,
+                  child: Card(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Text('TRY: ' + testmodel.rates.TRY.toString()),
+                        Text('AED: ' + testmodel.rates.AED.toString()),
+                        Text('USD: ' + testmodel.rates.USD.toString())
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            }
+            return const Center(child: CircularProgressIndicator());
+          default:
+            return const Center(child: CircularProgressIndicator());
+        }
+      },
     );
   }
 
@@ -189,32 +235,33 @@ class _StorePageState extends State<StorePage> {
         name: 'Chicken Zinger',
         icon: Icons.fastfood,
         color: Colors.amber,
+        price: 25,
       ),
-      Dish(
-        name: 'Chicken Zinger without chicken',
-        icon: Icons.print,
-        color: Colors.deepOrange,
-      ),
-      Dish(
-        name: 'Rice',
-        icon: Icons.child_care,
-        color: Colors.brown,
-      ),
-      Dish(
-        name: 'Beef burger without beef',
-        icon: Icons.whatshot,
-        color: Colors.green,
-      ),
-      Dish(
-        name: 'Laptop without OS',
-        icon: Icons.laptop,
-        color: Colors.purple,
-      ),
-      Dish(
-        name: 'Mac wihout macOS',
-        icon: Icons.laptop_mac,
-        color: Colors.blueGrey,
-      ),
+      // Dish(
+      //   name: 'Chicken Zinger without chicken',
+      //   icon: Icons.print,
+      //   color: Colors.deepOrange,
+      // ),
+      // Dish(
+      //   name: 'Rice',
+      //   icon: Icons.child_care,
+      //   color: Colors.brown,
+      // ),
+      // Dish(
+      //   name: 'Beef burger without beef',
+      //   icon: Icons.whatshot,
+      //   color: Colors.green,
+      // ),
+      // Dish(
+      //   name: 'Laptop without OS',
+      //   icon: Icons.laptop,
+      //   color: Colors.purple,
+      // ),
+      // Dish(
+      //   name: 'Mac wihout macOS',
+      //   icon: Icons.laptop_mac,
+      //   color: Colors.blueGrey,
+      // ),
     ];
 
     setState(() {
@@ -231,6 +278,11 @@ class _StorePageState extends State<StorePage> {
     setState(() {
       cartList = dataFromSecondPage;
     });
+  }
+
+  int cross(int multiplier) {
+    int myprice = multiplier * 2;
+    return myprice;
   }
 
   showAlertDialog(BuildContext context) {

@@ -11,9 +11,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
+        primarySwatch: Colors.purple,
       ),
-      home: const StorePage(title: "Chart App"),
+      home: const StorePage(title: "Sigma Digital Chart App"),
     );
   }
 }
