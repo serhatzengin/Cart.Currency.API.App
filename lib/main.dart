@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.purple,
       ),
-      home: const StorePage(title: "Sigma Digital Chart App"),
+      home: const StorePage(title: "Sigma Digital Chart App Serhat Zengin"),
     );
   }
 }
