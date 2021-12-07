@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../model/dish_model.dart';
+import '../model/product_model.dart';
 
 class Cart extends StatefulWidget {
-  final List<Dish> cart;
+  final List<Product> cart;
 
   const Cart(this.cart);
 
@@ -12,7 +12,7 @@ class Cart extends StatefulWidget {
 }
 
 class _CartState extends State<Cart> {
-  List<Dish> cart;
+  List<Product> cart;
 
   _CartState(this.cart);
 

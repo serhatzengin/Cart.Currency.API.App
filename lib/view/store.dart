@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sigma_basket_app/view/currency_page.dart';
 import 'cart.dart';
-import '../model/dish_model.dart';
+import '../model/product_model.dart';
 
 class StorePage extends StatefulWidget {
   const StorePage({Key? key, required this.title}) : super(key: key);
@@ -12,13 +12,13 @@ class StorePage extends StatefulWidget {
 }
 
 class _StorePageState extends State<StorePage> {
-  List<Dish> dishes = [];
-  List<Dish> cartList = [];
+  List<Product> productList = [];
+  List<Product> cartList = [];
 
   @override
   void initState() {
     super.initState();
-    _populateDishes();
+    _populateProducts();
   }
 
   @override
@@ -85,9 +85,9 @@ class _StorePageState extends State<StorePage> {
 
   ListView _buildListView() {
     return ListView.builder(
-      itemCount: dishes.length,
+      itemCount: productList.length,
       itemBuilder: (context, index) {
-        var item = dishes[index];
+        var item = productList[index];
         return Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 8.0,
@@ -146,39 +146,39 @@ class _StorePageState extends State<StorePage> {
     );
   }
 
-  void _populateDishes() {
-    var list = <Dish>[
-      Dish(
+  void _populateProducts() {
+    var list = <Product>[
+      Product(
         name: 'Mouse',
         icon: Icons.mouse,
         color: Colors.amber,
         price: 2,
       ),
-      Dish(
+      Product(
         name: 'Andorid Phone',
         icon: Icons.phone_android,
         color: Colors.deepOrange,
         price: 30,
       ),
-      Dish(
+      Product(
         name: 'I Phone',
         icon: Icons.phone_iphone_sharp,
         color: Colors.brown,
         price: 35,
       ),
-      Dish(
+      Product(
         name: 'Keyboard',
         icon: Icons.keyboard,
         color: Colors.green,
         price: 3,
       ),
-      Dish(
+      Product(
         name: 'Laptop Windows',
         icon: Icons.laptop_windows,
         color: Colors.purple,
         price: 45,
       ),
-      Dish(
+      Product(
         name: 'Mac wihout macOS',
         icon: Icons.laptop_mac,
         color: Colors.blueGrey,
@@ -187,12 +187,12 @@ class _StorePageState extends State<StorePage> {
     ];
 
     setState(() {
-      dishes = list;
+      productList = list;
     });
   }
 
   void goToCartScreen(BuildContext context) async {
-    List<Dish> dataFromSecondPage = await Navigator.push(
+    List<Product> dataFromSecondPage = await Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => Cart(cartList),

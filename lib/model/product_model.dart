@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class Dish {
+class Product {
   final String name;
   final IconData icon;
   final Color color;
   final int price;
 
-  Dish({
+  Product({
     required this.name,
     required this.icon,
     required this.color,
