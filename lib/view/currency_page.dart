@@ -25,23 +25,17 @@ class _CurrencyPageState extends State<CurrencyPage> {
             case ConnectionState.done:
               ExchangeModel model = snapshot.data as ExchangeModel;
               var result = model.rates.USD * model.rates.EUR;
-              //işlermler
               return Center(
                 child: Column(
                   children: [
-                    SizedBox(
-                      height: 100,
-                      child: Card(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Text('EURO: ' + model.rates.EUR.toString()),
-                            Text(
-                                'USD: ' + model.rates.USD.toString() + " EURO"),
-                            Text(
-                                'TRY: ' + model.rates.TRY.toString() + " EURO"),
-                          ],
-                        ),
+                    Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text('EURO: ' + model.rates.EUR.toString()),
+                          Text('USD: ' + model.rates.USD.toString() + " EURO"),
+                          Text('TRY: ' + model.rates.TRY.toString() + " EURO"),
+                        ],
                       ),
                     ),
                     TextButton(
