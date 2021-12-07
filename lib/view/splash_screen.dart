@@ -21,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
             context,
             MaterialPageRoute(
                 builder: (context) => const StorePage(
-                    title: "Sigma Digital Chart App Serhat Zengin"))));
+                    title: "Sigma Digital Cart App Serhat Zengin"))));
   }
 
   @override
