@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sigma_basket_app/model/api_model.dart';
+import 'package:sigma_basket_app/services/services.dart';
 import 'package:sigma_basket_app/view/currency_page.dart';
 import 'cart.dart';
 import '../model/product_model.dart';
@@ -14,6 +16,7 @@ class StorePage extends StatefulWidget {
 class _StorePageState extends State<StorePage> {
   List<Product> productList = [];
   List<Product> cartList = [];
+  bool convert = true;
 
   @override
   void initState() {
@@ -23,6 +26,8 @@ class _StorePageState extends State<StorePage> {
 
   @override
   Widget build(BuildContext context) {
+    var _service = Currency().sendAndGet();
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -67,26 +72,56 @@ class _StorePageState extends State<StorePage> {
           )
         ],
       ),
-      body: Column(
-        children: [
-          Expanded(flex: 3, child: _buildListView()),
-          TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const CurrencyPage(
-                            title: "Currency Page",
-                          )),
-                );
-              },
-              child: const Text("To Currency Page"))
-        ],
+      body: FutureBuilder(
+        future: _service,
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.done:
+              ExchangeModel model = snapshot.data as ExchangeModel;
+              var result = model.rates.USD * model.rates.EUR;
+              return Column(
+                children: [
+                  Expanded(flex: 3, child: _buildListView(model, convert)),
+                  Expanded(
+                    flex: 1,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            setState(() {
+                              convert = !convert;
+                              debugPrint(convert.toString());
+                            });
+                          },
+                          child: const Text("Convert To Dollar"),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const CurrencyPage(
+                                        title: "Currency Page",
+                                      )),
+                            );
+                          },
+                          child: const Text("To Currency Page"),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              );
+            default:
+              return const Center(child: CircularProgressIndicator());
+          }
+        },
       ),
     );
   }
 
-  ListView _buildListView() {
+  ListView _buildListView(model, convert) {
     return ListView.builder(
       itemCount: productList.length,
       itemBuilder: (context, index) {
@@ -113,11 +148,19 @@ class _StorePageState extends State<StorePage> {
                       child: Text(item.name),
                     ),
                     Expanded(
-                      flex: 1,
+                      flex: 2,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Text(item.price.toString() + " TRY"),
+                          Text(
+                            convert
+                                ? ((item.price) * model.rates.TRY)
+                                        .toStringAsFixed(2) +
+                                    " TRY"
+                                : ((item.price) * model.rates.USD)
+                                        .toStringAsFixed(2) +
+                                    " USD",
+                          ),
                           GestureDetector(
                             child: (!cartList.contains(item))
                                 ? const Icon(
