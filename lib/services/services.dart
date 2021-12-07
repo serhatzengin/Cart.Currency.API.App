@@ -1,29 +1,24 @@
 import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:sigma_basket_app/model/api_model.dart';
 
-abstract class IHomeService {
-  late final Dio _dio;
-  final _path = '/latest?access_key=6426c15cf14eb545b688a179cea29b65';
-  IHomeService(Dio dio) {
-    _dio = dio;
-  }
-  Future<ExchangeModel> fetchUsers();
-}
-
-
-class HomeService extends IHomeService {
-  HomeService(Dio dio) : super(dio);
-  @override
-  Future<ExchangeModel> fetchUsers() async {
+class Currency {
+  Future<ExchangeModel> sendAndGet() async {
+    var dio = Dio();
     ExchangeModel? model;
     try {
-      final response = await _dio.get(_path);
+      const String myAccesKey = "e4b85fd2ba60c017a9318ba9b0b51c13&format=1";
+      final response = await dio.get(
+          'http://api.exchangeratesapi.io/v1/latest?access_key=${myAccesKey}');
+
       if (response.statusCode == HttpStatus.ok) {
         model = ExchangeModel.fromJson(response.data);
         return model;
       }
+      // debugPrint(response.toString());
+      // debugPrint(response.data['rates']['TRY'].toString());
     } on Exception catch (e) {
       debugPrint(e.toString());
     }

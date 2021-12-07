@@ -74,7 +74,10 @@ class _StorePageState extends State<StorePage> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const CurrencyPage()),
+                  MaterialPageRoute(
+                      builder: (context) => const CurrencyPage(
+                            title: "Currency Page",
+                          )),
                 );
               },
               child: const Text("To Currency Page"))
@@ -153,36 +156,42 @@ class _StorePageState extends State<StorePage> {
         icon: Icons.mouse,
         color: Colors.amber,
         price: 2,
+        priceDollar: 50,
       ),
       Product(
         name: 'Andorid Phone',
         icon: Icons.phone_android,
         color: Colors.deepOrange,
         price: 30,
+        priceDollar: 50,
       ),
       Product(
-        name: 'I Phone',
+        name: 'IPhone',
         icon: Icons.phone_iphone_sharp,
         color: Colors.brown,
         price: 35,
+        priceDollar: 50,
       ),
       Product(
         name: 'Keyboard',
         icon: Icons.keyboard,
         color: Colors.green,
         price: 3,
+        priceDollar: 50,
       ),
       Product(
         name: 'Laptop Windows',
         icon: Icons.laptop_windows,
         color: Colors.purple,
         price: 45,
+        priceDollar: 50,
       ),
       Product(
-        name: 'Mac wihout macOS',
+        name: 'Latop MacOS',
         icon: Icons.laptop_mac,
         color: Colors.blueGrey,
         price: 50,
+        priceDollar: 50,
       ),
     ];
 
