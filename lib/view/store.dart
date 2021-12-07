@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sigma_basket_app/model/api_model.dart';
 import 'package:sigma_basket_app/services/services.dart';
 import 'package:sigma_basket_app/view/currency_page.dart';
+import 'package:sigma_basket_app/view/detail_screen.dart';
 import 'cart.dart';
 import '../model/product_model.dart';
 
@@ -131,60 +132,72 @@ class _StorePageState extends State<StorePage> {
               horizontal: 8.0,
               vertical: 2.0,
             ),
-            child: Card(
-              child: SizedBox(
-                height: 60,
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Icon(
-                        item.icon,
-                        color: item.color,
+            child: InkWell(
+              onTap: () {
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //       builder: (context) => DetailPage(
+                //             exchange: model.rates.USD,
+                //             product: item.name,
+                //           )),
+                // );
+              },
+              child: Card(
+                child: SizedBox(
+                  height: 60,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Icon(
+                          item.icon,
+                          color: item.color,
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: Text(item.name),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text(
-                            convert
-                                ? ((item.price) * model.rates.TRY)
-                                        .toStringAsFixed(2) +
-                                    " TRY"
-                                : ((item.price) * model.rates.USD)
-                                        .toStringAsFixed(2) +
-                                    " USD",
-                          ),
-                          GestureDetector(
-                            child: (!cartList.contains(item))
-                                ? const Icon(
-                                    Icons.add_circle,
-                                    color: Colors.green,
-                                  )
-                                : const Icon(
-                                    Icons.remove_circle,
-                                    color: Colors.red,
-                                  ),
-                            onTap: () {
-                              setState(() {
-                                if (!cartList.contains(item)) {
-                                  cartList.add(item);
-                                } else {
-                                  cartList.remove(item);
-                                }
-                              });
-                            },
-                          ),
-                        ],
+                      Expanded(
+                        flex: 2,
+                        child: Text(item.name),
                       ),
-                    ),
-                  ],
+                      Expanded(
+                        flex: 2,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                              convert
+                                  ? ((item.price) * model.rates.TRY)
+                                          .toStringAsFixed(2) +
+                                      " TRY"
+                                  : ((item.price) * model.rates.USD)
+                                          .toStringAsFixed(2) +
+                                      " USD",
+                            ),
+                            GestureDetector(
+                              child: (!cartList.contains(item))
+                                  ? const Icon(
+                                      Icons.add_circle,
+                                      color: Colors.green,
+                                    )
+                                  : const Icon(
+                                      Icons.remove_circle,
+                                      color: Colors.red,
+                                    ),
+                              onTap: () {
+                                setState(() {
+                                  if (!cartList.contains(item)) {
+                                    cartList.add(item);
+                                  } else {
+                                    cartList.remove(item);
+                                  }
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ));
@@ -264,7 +277,7 @@ class _StorePageState extends State<StorePage> {
 
     AlertDialog alert = AlertDialog(
       title: const Text("Empty Cart"),
-      content: const Text("Please Add Product To Basket"),
+      content: const Text("Please Add Product To Cart"),
       actions: [
         continueButton,
       ],
