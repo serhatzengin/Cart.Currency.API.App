@@ -21,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
             context,
             MaterialPageRoute(
                 builder: (context) => const StorePage(
-                    title: "Sigma Telecom Cart App Serhat Zengin"))));
+                    title: "Cart Currency Converter App Serhat Zengin"))));
   }
 
   @override
@@ -36,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 height: 300.00,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image: ExactAssetImage('assets/logo/sigma_telecom.jpg'),
+                    image: ExactAssetImage('assets/logo/splash.jpg'),
                     fit: BoxFit.fitHeight,
                   ),
                 ))
