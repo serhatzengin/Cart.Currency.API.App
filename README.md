@@ -1,4 +1,4 @@
-# Sigma_Basket_App
+# Alışveriş Sepeti ve Kur Çevirme Uygulaması
  Serhat Zengin'in alışveriş sepeti ve kur çevirme uygulaması. 
  Ürünler karışık şekilde alışveriş sepetine eklenebiliyor, sepetten istenen ürün silinebiliyor.
  Ürünlerin dolar karşılığı buton yardımı ile gösteriliyor.
